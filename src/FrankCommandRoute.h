@@ -10,10 +10,14 @@
 
 #import "RequestRouter.h"
 
-@protocol FrankCommand
+@protocol FrankCommand <NSObject>
 
 @required
 - (NSString *)handleCommandWithRequestBody:(NSString *)requestBody;
+
+@optional
+- (NSString *)handleCommand:(NSArray*)command withRequestBody:(NSString *)requestBody;
+
 @end
 
 

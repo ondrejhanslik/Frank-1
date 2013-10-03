@@ -12,4 +12,7 @@
 
 - (NSArray*)FEX_windows;
 
+- (BOOL)FEX_isKeyboardVisible;
+- (BOOL)FEX_isKeyboardAnimating;
+
 @end

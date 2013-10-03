@@ -17,6 +17,7 @@
 #import "DeviceCommand.h"
 #import "ExitCommand.h"
 #import "AppCommand.h"
+#import "AppDelegateCommand.h"
 #import "AccessibilityCheckCommand.h"
 #import "EnginesCommand.h"
 #import "VersionCommand.h"
@@ -63,7 +64,8 @@ static NSUInteger __defaultPort = FRANK_SERVER_PORT;
         [frankCommandRoute registerCommand:[[[ResolutionCommand alloc] init] autorelease] withName:@"resolution"];
         [frankCommandRoute registerCommand:[[[DeviceCommand alloc] init] autorelease] withName:@"device"];
 		[frankCommandRoute registerCommand:[[[AccessibilityCheckCommand alloc] init]autorelease] withName:@"accessibility_check"];
-		[frankCommandRoute registerCommand:[[[AppCommand alloc] init]autorelease] withName:@"app_exec"];
+		[frankCommandRoute registerCommand:[[[AppCommand alloc] init]autorelease] withName:@"application"];
+		[frankCommandRoute registerCommand:[[[AppDelegateCommand alloc] init]autorelease] withName:@"app_exec"];
         [frankCommandRoute registerCommand:[[[EnginesCommand alloc] init]autorelease] withName:@"engines"];
         [frankCommandRoute registerCommand:[[[VersionCommand alloc] initWithVersion:[NSString stringWithFormat:@"%s",xstr(FRANK_PRODUCT_VERSION)]]autorelease] withName:@"version"];
         [frankCommandRoute registerCommand:[[[ExitCommand alloc] init] autorelease] withName:@"exit"];
@@ -72,7 +74,10 @@ static NSUInteger __defaultPort = FRANK_SERVER_PORT;
 #if TARGET_OS_IPHONE
         [frankCommandRoute registerCommand:[[[OrientationCommand alloc]init]autorelease] withName:@"orientation"];
         [frankCommandRoute registerCommand:[[[LocationCommand alloc]init]autorelease] withName:@"location"];
-        [frankCommandRoute registerCommand:[[[IOSKeyboardCommand alloc] init]autorelease] withName:@"type_into_keyboard"];
+        
+        IOSKeyboardCommand* keyboardCommand = [[[IOSKeyboardCommand alloc] init] autorelease];
+        [frankCommandRoute registerCommand:keyboardCommand withName:@"type_into_keyboard"];
+        [frankCommandRoute registerCommand:keyboardCommand withName:@"keyboard-state"];
 #else
         [frankCommandRoute registerCommand:[[[SuccessCommand alloc]init]autorelease] withName:@"orientation"];
         [frankCommandRoute registerCommand:[[[SuccessCommand alloc]init]autorelease] withName:@"location"];

@@ -111,7 +111,7 @@ module FrankHelper
     raise "could not find text fields with placeholder #{quote}#{placeholder_field_name}#{quote}" if text_fields_modified.empty?
     #TODO raise warning if text_fields_modified.count > 1
   end
-
+  
   # Indicate whether there are any views in the current view heirarchy which match the specified selector.
   # @param [String] selector a view selector.
   # @return [Boolean]
@@ -240,7 +240,7 @@ module FrankHelper
      matches.delete(false)
      !matches.empty?
   end
-
+  
   def accessibility_frame(selector)
     frames = frankly_map( selector, 'FEX_accessibilityFrame' )
     raise "the supplied selector [#{selector}] did not match any views" if frames.empty?
@@ -276,6 +276,27 @@ module FrankHelper
 
   end
 
+  # Ask Frank to invoke the specified method on the application object under automation
+  # @param method_sig [String] the method signature
+  # @param method_args the method arguments
+  #
+  # @example
+  #   # the same as calling
+  #   # [[UIApplication sharedApplication] setServiceBaseUrl:@"http://example.com/my_api" withPort:8080]
+  #   # from your native app
+  #   application_map( "setServiceBaseUrl:withPort:", "http://example.com/my_api", 8080 )
+  #
+  #
+  def application_map(method_sig, *method_args)
+    operation_map = Gateway.build_operation_map(method_sig.to_s, method_args)
+    
+    res = frank_server.send_post(
+      'application',
+      :operation => operation_map
+    )
+    
+    return Gateway.evaluate_frankly_response( res, "application #{method_sig}" )
+  end
 
   # Ask Frank to invoke the specified method on the app delegate of the iOS application under automation.
   # @param method_sig [String] the method signature
