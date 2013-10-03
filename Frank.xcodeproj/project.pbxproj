@@ -13,6 +13,10 @@
 		00E864C5161D708B00E01209 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E864C4161D708B00E01209 /* MapKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0626BFAE174300240020B33B /* DumpCommandRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 0626BFAC174300240020B33B /* DumpCommandRoute.h */; };
 		0626BFAF174300240020B33B /* DumpCommandRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0626BFAD174300240020B33B /* DumpCommandRoute.m */; };
+		06292C0B17FD9AB7007996BF /* AppDelegateCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 06292C0A17FD9AB6007996BF /* AppDelegateCommand.m */; };
+		06292C0C17FD9AB7007996BF /* AppDelegateCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 06292C0A17FD9AB6007996BF /* AppDelegateCommand.m */; };
+		06292C0F17FD9AC9007996BF /* AppDelegateCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 06292C0E17FD9AC9007996BF /* AppDelegateCommand.h */; };
+		06292C1017FD9AC9007996BF /* AppDelegateCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 06292C0E17FD9AC9007996BF /* AppDelegateCommand.h */; };
 		0658EF1E17E52FBB000614E6 /* UIApplication+FrankAutomation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0658EF1C17E52FBB000614E6 /* UIApplication+FrankAutomation.h */; };
 		0658EF1F17E52FBB000614E6 /* UIApplication+FrankAutomation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0658EF1D17E52FBB000614E6 /* UIApplication+FrankAutomation.m */; };
 		06CF35CA1744DECB00268ABF /* DumpCommandRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0626BFAD174300240020B33B /* DumpCommandRoute.m */; };
@@ -290,6 +294,8 @@
 		00E864C4161D708B00E01209 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0626BFAC174300240020B33B /* DumpCommandRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DumpCommandRoute.h; sourceTree = "<group>"; };
 		0626BFAD174300240020B33B /* DumpCommandRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DumpCommandRoute.m; sourceTree = "<group>"; };
+		06292C0A17FD9AB6007996BF /* AppDelegateCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateCommand.m; sourceTree = "<group>"; };
+		06292C0E17FD9AC9007996BF /* AppDelegateCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegateCommand.h; sourceTree = "<group>"; };
 		0658EF1C17E52FBB000614E6 /* UIApplication+FrankAutomation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+FrankAutomation.h"; sourceTree = "<group>"; };
 		0658EF1D17E52FBB000614E6 /* UIApplication+FrankAutomation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+FrankAutomation.m"; sourceTree = "<group>"; };
 		30228E2916421C4400B1F9E7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
@@ -681,6 +687,8 @@
 				D67F2AAC13F5E7FA00A0BFF1 /* AccessibilityCheckCommand.m */,
 				4C1DD76B12BADFE100E10B8C /* AppCommand.h */,
 				4C1DD76A12BADFE100E10B8C /* AppCommand.m */,
+				06292C0E17FD9AC9007996BF /* AppDelegateCommand.h */,
+				06292C0A17FD9AB6007996BF /* AppDelegateCommand.m */,
 				303CFCE216C80B830004BD05 /* DeviceCommand.h */,
 				303CFCE316C80B830004BD05 /* DeviceCommand.m */,
 				D6FA01B714283C4F00576AF0 /* EnginesCommand.h */,
@@ -824,6 +832,7 @@
 				302B80411646DE02000F9861 /* NSImage+Frank.h in Headers */,
 				30412D30165333E300719CD2 /* NSView+FrankImageCapture.h in Headers */,
 				30AC65A4165C39FF00DEB0AB /* FrankMac-Prefix.pch in Headers */,
+				06292C1017FD9AC9007996BF /* AppDelegateCommand.h in Headers */,
 				30AC65A7165C3A4D00DEB0AB /* OSXKeyboardCommand.h in Headers */,
 				30C544B2167E4D9E0034F49C /* SuccessCommand.h in Headers */,
 				C189EF1F16BB5A8100F8236D /* VersionCommand.h in Headers */,
@@ -861,6 +870,7 @@
 				AB7947BB15C4412300052B74 /* WebSocket.h in Headers */,
 				D6FA01B714283C4F00576AF1 /* EnginesCommand.h in Headers */,
 				A91F3AA615F6E456003F434F /* ExitCommand.h in Headers */,
+				06292C0F17FD9AC9007996BF /* AppDelegateCommand.h in Headers */,
 				C9605E641606BF2900170F88 /* IOSKeyboardCommand.h in Headers */,
 				C9605E6A1606BFAE00170F88 /* UIImage+Frank.h in Headers */,
 				C18A5EF0160D4AB400DC25F6 /* ImageCaptureRoute.h in Headers */,
@@ -1112,6 +1122,7 @@
 				3072649B165812FB00815A1A /* Operation.m in Sources */,
 				3072649D165812FB00815A1A /* SelectorEngineRegistry.m in Sources */,
 				3072649F165812FB00815A1A /* ViewJSONSerializer.m in Sources */,
+				06292C0C17FD9AB7007996BF /* AppDelegateCommand.m in Sources */,
 				30C544B4167E4D9E0034F49C /* SuccessCommand.m in Sources */,
 				304A0C821699105600150BE8 /* NSApplication+FrankAutomation.m in Sources */,
 				C189EF2116BB5A8100F8236D /* VersionCommand.m in Sources */,
@@ -1229,6 +1240,7 @@
 				0071264714F8956700E738ED /* ViewJSONSerializer.m in Sources */,
 				D6FA01B714283C4F00576AE1 /* FranklyProtocolHelper.m in Sources */,
 				D6A1D28015A8D05E00EC056C /* UIView+Frank.m in Sources */,
+				06292C0B17FD9AB7007996BF /* AppDelegateCommand.m in Sources */,
 				D6FA01B714283C4F00576AEF /* EnginesCommand.m in Sources */,
 				A91F3AA715F6E456003F434F /* ExitCommand.m in Sources */,
 				C9605E651606BF2900170F88 /* IOSKeyboardCommand.m in Sources */,

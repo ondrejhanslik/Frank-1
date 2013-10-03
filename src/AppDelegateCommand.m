@@ -1,5 +1,5 @@
 //
-//  AppCommand.m
+//  AppDelegateCommand.m
 //  Chase.Mobi
 //
 //  Created by Pete Hodgson on 10/6/10.
@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AppCommand.h"
+#import "AppDelegateCommand.h"
 
 #import "Operation.h"
 #import "ViewJSONSerializer.h"
 #import "FranklyProtocolHelper.h"
 #import "JSON.h"
 
-@implementation AppCommand
+@implementation AppDelegateCommand
 
 - (NSString *)handleCommandWithRequestBody:(NSString *)requestBody {
 	
@@ -23,23 +23,23 @@
 	Operation *operation = [[[Operation alloc] initFromJsonRepresentation:operationDict] autorelease];
 	
 #if TARGET_OS_IPHONE
-    UIApplication* application = [UIApplication sharedApplication];
+    id <UIApplicationDelegate> appDelegate = [[UIApplication sharedApplication] delegate];
 #else
-    NSApplication* application = [NSApplication sharedApplication];
+    id <NSApplicationDelegate> appDelegate = [[NSApplication sharedApplication] delegate];
 #endif
 	
-	if( ![operation appliesToObject:application] )
+	if( ![operation appliesToObject:appDelegate] )
 	{
-		return [FranklyProtocolHelper generateErrorResponseWithReason:@"operation doesn't apply" andDetails:@"operation does not appear to be implemented in application"];
+		return [FranklyProtocolHelper generateErrorResponseWithReason:@"operation doesn't apply" andDetails:@"operation does not appear to be implemented in app delegate"];
 	}
 	
 	id result;
 	
 	@try {
-		result = [operation applyToObject:application];
+		result = [operation applyToObject:appDelegate];
 	}
 	@catch (NSException *e) {
-		NSLog( @"Exception while applying operation to application:\n%@", e );
+		NSLog( @"Exception while applying operation to app delegate:\n%@", e );
 		return [FranklyProtocolHelper generateErrorResponseWithReason:@"exception while executing operation" andDetails:[e reason]];
 	}
 	

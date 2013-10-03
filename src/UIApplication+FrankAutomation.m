@@ -53,6 +53,64 @@ static NSMutableArray* FEX_registeredWindows;
 
 @end
 
+@interface FEXKeyboardObserver : NSObject
+
+@property (nonatomic, assign, readwrite) BOOL keyboardVisible;
+@property (nonatomic, assign, readwrite) NSUInteger keyboardAnimationCounter;
+
+@end
+
+static FEXKeyboardObserver* FEX_keyboardObserver;
+
+@implementation FEXKeyboardObserver
+
+@synthesize keyboardVisible = _keyboardVisible;
+@synthesize keyboardAnimationCounter = _keyboardAnimationCounter;
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        FEX_keyboardObserver = [[FEXKeyboardObserver alloc] init];
+        
+        NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:FEX_keyboardObserver selector:@selector(onKeyboadNotification:) name:UIKeyboardWillShowNotification object:nil];
+        [notificationCenter addObserver:FEX_keyboardObserver selector:@selector(onKeyboadNotification:) name:UIKeyboardDidShowNotification object:nil];
+        [notificationCenter addObserver:FEX_keyboardObserver selector:@selector(onKeyboadNotification:) name:UIKeyboardWillHideNotification object:nil];
+        [notificationCenter addObserver:FEX_keyboardObserver selector:@selector(onKeyboadNotification:) name:UIKeyboardDidHideNotification object:nil];
+        [notificationCenter addObserver:FEX_keyboardObserver selector:@selector(onKeyboadNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
+        [notificationCenter addObserver:FEX_keyboardObserver selector:@selector(onKeyboadNotification:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    });
+}
+
+- (BOOL)isKeyboardAnimating {
+    return (self.keyboardAnimationCounter > 0);
+}
+
+- (void)onKeyboadNotification:(NSNotification*)notification {
+    if ([notification.name isEqualToString:UIKeyboardWillShowNotification]) {
+        self.keyboardVisible = YES;
+        self.keyboardAnimationCounter++;
+    }
+    else if ([notification.name isEqualToString:UIKeyboardDidShowNotification]) {
+        self.keyboardAnimationCounter--;
+    }
+    else if ([notification.name isEqualToString:UIKeyboardWillHideNotification]) {
+        self.keyboardAnimationCounter++;
+    }
+    else if ([notification.name isEqualToString:UIKeyboardDidHideNotification]) {
+        self.keyboardVisible = NO;
+        self.keyboardAnimationCounter--;
+    }
+    else if ([notification.name isEqualToString:UIKeyboardWillChangeFrameNotification]) {
+        self.keyboardAnimationCounter++;
+    }
+    else if ([notification.name isEqualToString:UIKeyboardDidChangeFrameNotification]) {
+        self.keyboardAnimationCounter--;
+    }
+}
+
+@end
+
 @implementation UIApplication (FrankAutomation)
 
 - (NSArray*)FEX_windows {
@@ -83,6 +141,14 @@ static NSMutableArray* FEX_registeredWindows;
              usingComparator:levelComparator];
     
     return [[windows copy] autorelease];
+}
+
+- (BOOL)FEX_isKeyboardVisible {
+    return [FEX_keyboardObserver keyboardVisible];
+}
+
+- (BOOL)FEX_isKeyboardAnimating {
+    return [FEX_keyboardObserver isKeyboardAnimating];
 }
 
 @end

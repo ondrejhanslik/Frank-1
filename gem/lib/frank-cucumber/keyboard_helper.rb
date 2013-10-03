@@ -56,5 +56,36 @@ module KeyboardHelper
       Frank::Cucumber::Gateway.evaluate_frankly_response(res, "typing the following shortcut into the keyboard '#{key}' with modifiers #{args}")
     end
   end
+  
+  def keyboard_visible
+      application_map('FEX_isKeyboardVisible').first
+  end
+  
+  def keyboard_animating
+      application_map('FEX_isKeyboardAnimating').first
+  end
+  
+  # Waits for keyboard to be visible
+  #
+  # @param timeout [Number] number of seconds to wait for nothing to be animating before timeout out. Defaults to {WaitHelper::TIMEOUT}
+  #
+  # Raises an exception if there were still views animating after {timeout} seconds.
+  def wait_for_keyboard_to_be_visible( timeout = false )
+      wait_until :timeout => timeout do
+          keyboard_visible && !keyboard_animating
+      end
+  end
+
+  # Waits for keyboard to be hidden
+  #
+  # @param timeout [Number] number of seconds to wait for nothing to be animating before timeout out. Defaults to {WaitHelper::TIMEOUT}
+  #
+  # Raises an exception if there were still views animating after {timeout} seconds.
+  def wait_for_keyboard_to_be_hidden( timeout = false )
+      wait_until :timeout => timeout do
+          !keyboard_visible && !keyboard_animating
+      end
+  end
+  
 end
 end end
